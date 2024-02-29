@@ -109,3 +109,9 @@ bin/kafka-console-consumer.sh --topic [topic_name] --bootstrap-server your-ec2-p
 - Mitigated communication issues between producer and consumer on Amazon Linux 2023 AMI by switching to Amazon Linux 2 Kernel 5.10 AMI.
 - Configured Zookeeper timeout settings to maintain robustness in the pipeline.
 - Optimized data transfer to work within the free tier's memory constraints, ensuring smooth data flow from producer to consumer (S3 bucket) without overloading the broker.
+
+
+This project is made using the help of Darshil Parmar's [YouTube video](https://www.youtube.com/watch?v=KerNf0NANMo).
+
+
+-- Aziz Bohra
