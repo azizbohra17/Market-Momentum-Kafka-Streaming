@@ -41,6 +41,31 @@ wget https://downloads.apache.org/kafka/3.3.1/kafka_2.12-3.3.1.tgz
 tar -xvf kafka_2.12-3.3.1.tgz
 cd kafka_2.12-3.3.1
 ```
+### Alternate way, if you encounter issues during installation of java
+Installing Java 1.8 on EC2
+
+Java 1.8 was not directly available, but I found a solution on Stack Overflow:
+
+```bash
+$ yum search java | grep "1.8"
+Last metadata expiration check: 1:00:33 ago on Tue Aug  8 18:28:56 2023.
+java-1.8.0-amazon-corretto.x86_64 : Amazon Corretto runtime environment
+java-1.8.0-amazon-corretto-devel.x86_64 : Amazon Corretto development environment
+```
+
+Then, I installed it using:
+
+```bash
+
+$ sudo yum install java-1.8.0-amazon-corretto.x86_64 
+# This installed the correct version:
+
+$ java -version
+openjdk version "1.8.0_382"
+```
+For more details, refer to the [Stack Overflow post](https://stackoverflow.com/questions/76862527/yum-what-java-8-versions-are-available-to-install).
+
+
 # Configuring Kafka and Zookeeper
 
 Start Zookeeper and Kafka services with the following configurations:
