@@ -13,6 +13,8 @@ Market Momentum is a data engineering initiative focused on the real-time analys
 - **Boto3 SDK**: For interacting with AWS services using Python.
 - **Zookeeper**: For managing Kafka's cluster coordination.
 
+![image](https://github.com/azizbohra17/Market-Momentum-Kafka-Streaming/assets/47524749/9863bf44-f85d-45a0-ac58-5c7f5aa0931d)
+
 ## Installation & Configuration
 
 ### Prerequisites
@@ -39,3 +41,45 @@ wget https://downloads.apache.org/kafka/3.3.1/kafka_2.12-3.3.1.tgz
 tar -xvf kafka_2.12-3.3.1.tgz
 cd kafka_2.12-3.3.1
 ```
+# Configuring Kafka and Zookeeper
+
+Start Zookeeper and Kafka services with the following configurations:
+
+```bash
+# Start Zookeeper
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+# Open another terminal session and SSH into your EC2 instance
+ssh -i /path/to/your/key.pem ec2-user@your-ec2-public-ip
+
+# Start Kafka server with custom heap options to manage memory
+export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
+cd kafka_2.12-3.3.1
+bin/kafka-server-start.sh config/server.properties
+
+# Modify the server.properties to set ADVERTISED_LISTENERS to your EC2 public IP
+sudo nano config/server.properties
+```
+
+# Creating Topics and Starting Producer/Consumer
+
+Create Kafka topics and initiate the producer and consumer services:
+
+```bash
+# Create a Kafka topic and replace [topic_name] with your specific topic name
+bin/kafka-topics.sh --create --topic [topic_name] --bootstrap-server your-ec2-public-ip:9092 --replication-factor 1 --partitions 1
+
+# Start Kafka producer
+bin/kafka-console-producer.sh --topic [topic_name] --bootstrap-server your-ec2-public-ip:9092
+
+# In a new terminal session, start Kafka consumer
+bin/kafka-console-consumer.sh --topic [topic_name] --bootstrap-server your-ec2-public-ip:9092
+```
+
+# Challenges and Resolutions
+
+- Overcame Kafka's incompatibility with Python 3.12 by implementing Python 3.11.
+- Addressed memory requirements essential for running Kafka server on a free tier EC2 instance.
+- Mitigated communication issues between producer and consumer on Amazon Linux 2023 AMI by switching to Amazon Linux 2 Kernel 5.10 AMI.
+- Configured Zookeeper timeout settings to maintain robustness in the pipeline.
+- Optimized data transfer to work within the free tier's memory constraints, ensuring smooth data flow from producer to consumer (S3 bucket) without overloading the broker.
