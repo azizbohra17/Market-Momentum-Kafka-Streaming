@@ -1,4 +1,4 @@
-# Market Momentum: Real-Time Stock Data Analysis
+# Market Momentum: Real-Time Stock Data Streaming
 
 ## Project Overview
 
