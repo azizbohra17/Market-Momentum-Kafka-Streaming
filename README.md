@@ -104,6 +104,7 @@ bin/kafka-console-consumer.sh --topic [topic_name] --bootstrap-server your-ec2-p
 # Challenges and Resolutions
 
 - Overcame Kafka's incompatibility with Python 3.12 by implementing Python 3.11.
+- Resolved Java 1.8 availability issue on EC2 by installing Amazon Corretto version, ensuring compatibility with Kafka. For more details, refer to the [Stack Overflow post](https://stackoverflow.com/questions/76862527/yum-what-java-8-versions-are-available-to-install).
 - Addressed memory requirements essential for running Kafka server on a free tier EC2 instance.
 - Mitigated communication issues between producer and consumer on Amazon Linux 2023 AMI by switching to Amazon Linux 2 Kernel 5.10 AMI.
 - Configured Zookeeper timeout settings to maintain robustness in the pipeline.
